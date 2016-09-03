@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<BaliProject version="3.2" title="multi_dimensional_arrays" device="LCMXO2-1200HC-5TG144C" default_implementation="impl1">
+    <Options/>
+    <Implementation title="impl1" dir="impl1" description="impl1" synthesis="lse" default_strategy="Strategy1">
+        <Options def_top="multi_dimensional_array_top"/>
+        <Source name="../sources/hdl/vhdl/multi_array_types_pkg.vhd" type="VHDL" type_short="VHDL">
+            <Options/>
+        </Source>
+        <Source name="../implementation_example/source/hdl/vhdl/multi_dimensional_array.vhd" type="VHDL" type_short="VHDL">
+            <Options/>
+        </Source>
+        <Source name="../implementation_example/source/hdl/vhdl/multi_dimensional_array_top.vhd" type="VHDL" type_short="VHDL">
+            <Options top_module="multi_dimensional_array_top"/>
+        </Source>
+        <Source name="multi_dimensional_arrays.lpf" type="Logic Preference" type_short="LPF">
+            <Options/>
+        </Source>
+    </Implementation>
+    <Strategy name="Strategy1" file="multi_dimensional_arrays1.sty"/>
+</BaliProject>

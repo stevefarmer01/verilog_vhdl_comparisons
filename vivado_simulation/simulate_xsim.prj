@@ -1,0 +1,9 @@
+
+vhdl work "../sources/hdl/vhdl/multi_array_types_pkg.vhd"
+
+vhdl work "../implementation_example/source/hdl/vhdl/multi_dimensional_array.vhd"
+vhdl work "../implementation_example/source/hdl/vhdl/multi_dimensional_array_top.vhd"
+
+vhdl work "../sources/testbench/hdl/vhdl/multi_dimensional_file_io.vhd"
+vhdl work "../sources/testbench/hdl/vhdl/tb_multi_dimensional_array.vhd"
+

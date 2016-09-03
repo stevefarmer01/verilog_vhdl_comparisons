@@ -1,0 +1,43 @@
+#########################################################################################################
+##  This is an example .gitignore file for Vivado, please treat it as an example as 
+##  it might not be complete. In addition, XAPP 1165 should be followed.
+#########################################################################################################
+#########
+#Exclude all
+#########
+*
+!*/
+!.gitignore
+###########################################################################
+##  VIVADO project mode
+###########################################################################
+
+#ignore vivado created .runs and .cache whole directories
+*.runs/*
+*.cache/
+*.sim/
+
+
+#########
+#Source files:
+#########
+#Do NOT ignore VHDL, Verilog, block diagrams or EDIF files.
+!*.vhd
+!*.vhdl
+!*.v
+#####when scripted ignore .xpr file
+!*.xpr
+!*.xdc
+!*.tcl
+#####when scripted do not ignore .bat (windows batch files)
+!*.bat
+
+####### just to aid temperary debug between computers allow storing of waveform files
+!*.wcfg
+
+###### JUST FOR CODE DEVLOPMENT IT IS HANDY TO SEE WHEN BIT FILE HAS CHANGED #####
+##Need to ignore all files in sub-directories but not the directory path into where the bit file is
+#!*.runs/impl_1
+#*.runs/impl_1/*
+#!*.bit
+

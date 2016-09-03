@@ -1,0 +1,20 @@
+#########################################################################################################
+##  This is an example .gitignore file for Vivado, please treat it as an example as 
+##  it might not be complete. In addition, XAPP 1165 should be followed.
+#########################################################################################################
+#########
+#Exclude all
+#########
+*
+!*/
+!.gitignore
+
+####### Do Not ignore manage_ip_project .xpr until manage_ip_script and individual generated IP's .xci (this is recommended to be used for reading IP into scripts rather than .dcp) file
+
+#Individual IP's .xci and..
+!/*/*.xci
+
+#..managed_ip_project for all IP creation/managing
+managed_ip_project/*
+!managed_ip_project/managed_ip_project.xpr
+

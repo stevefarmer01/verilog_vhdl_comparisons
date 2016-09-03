@@ -1,0 +1,15 @@
+###########################################
+#Exclude all but not paths into directories
+###########################################
+*
+!*/
+!.gitignore
+!*.vhd
+!*.vhdl
+#input test vectors
+!**/test_inputs/*
+#modelsim scripts and wave file
+!simulate.bat
+!wave.do
+!*.py
+!*.ini # These might not be needed in the future
