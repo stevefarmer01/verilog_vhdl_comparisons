@@ -38,6 +38,9 @@
 #This line does not stop webtalk being sent to Xilinx because we are using a WEBPack license. However, it does stop lots of annoying 
 #config_webtalk -install off
 
+#This installs a third party tcl app needed for 'xilinx::ultrafast::report_io_reg' command below
+#tclapp::install ultrafast
+
 source vivado_ip_build_script.tcl
 
 set outputDir ./vivado_reports
@@ -59,62 +62,64 @@ file mkdir $outputDir
 #read_vhdl -library work [ glob ../common_ip/test_pattern_gen_ccd/local_common_ip/multi_dimensional_arrays/sources/hdl/vhdl/*.vhd ]
 #read_vhdl -library work [ glob ../common_ip/test_pattern_gen_ccd/sources/hdl/vhdl/*.vhd ]
 #read_vhdl -library work [ glob ../common_ip/fpga_reset/source/*.vhd ]
-##main project source code
-#read_vhdl -library work [ glob ../sources/hdl/vhdl/*.vhd ]
+
+#main project source code
+read_vhdl -library work [ glob ../sources/hdl/vhdl/*.vhd ]
+
 ##XDC constraints
 #read_xdc ../sources/constraint/artix_headboard_eval.xdc
 #
 #report_compile_order -constraints
 #
 #
-#
-#
-###
-### STEP#2: run synthesis, report utilization and timing estimates, write checkpoint
-##design
-###
-#synth_design -top artix_headboard_eval_top -part $part_number -flatten rebuilt
-## write_checkpoint -force $outputDir/post_synth
-## #report_timing -file $outputDir/post_synth_timing.rpt
-## report_timing_summary -file $outputDir/post_synth_timing_summary.rpt
-## report_power -file $outputDir/post_synth_power.rpt
-###
-### STEP#3: run placement and logic optimization, report utilization and timing
-##estimates, write checkpoint design
-###
-#opt_design
-## power_opt_design
-#place_design
-#phys_opt_design
-## write_checkpoint -force $outputDir/post_place
-## report_timing_summary -file $outputDir/post_place_timing_summary.rpt
-###
-### STEP#4: run router, report actual utilization and timing, write checkpoint design,
-##run drc, write verilog and xdc out
-###
-#route_design
-#place_design -post_place_opt
-#phys_opt_design
-#route_design
-## Generate reports and design checkpoint
-#write_checkpoint -force $outputDir/post_route
-#report_timing_summary -file $outputDir/post_route_timing_summary.rpt -report_unconstrained
-#report_timing -sort_by group -max_paths 5 -path_type summary -file $outputDir/post_route_timing.rpt
-## report_clock_utilization -file $outputDir/clock_util.rpt
-#report_utilization -file $outputDir/post_route_util.rpt
-## report_power -file $outputDir/post_route_power.rpt
-#report_drc -file $outputDir/post_imp_drc.rpt
-## write_verilog -force $outputDir/artix_headboard_impl_netlist.v
-## write_xdc -no_fixed_only -force $outputDir/artix_headboard_impl.xdc
-##If below fails ensure that 'UltraFast Design Methodology' is installed via the Vivado TCL store this is as per https://forums.xilinx.com/t5/Welcome-Join/checking-if-registers-are-in-IOB/td-p/707421
-#xilinx::ultrafast::report_io_reg -verbose -file $outputDir/post_route_iob.rpt
-#
-###
-### STEP#5: generate a bitstream
-###
-## Reduce these failures down to warnings to allow bit file to be generated without LOC constaints being applied to pins
-#set_property SEVERITY {Warning} [get_drc_checks NSTD-1]
-#set_property SEVERITY {Warning} [get_drc_checks UCIO-1]
-#
-#write_bitstream -force -bin_file $outputDir/test_pattern_gen_ccd_bfm.bit
-##write_bitstream $outputDir/bft.bit
+
+
+##
+## STEP#2: run synthesis, report utilization and timing estimates, write checkpoint
+#design
+##
+synth_design -top verilog_vhdl_comparison_top -part $part_number -flatten rebuilt
+# write_checkpoint -force $outputDir/post_synth
+# #report_timing -file $outputDir/post_synth_timing.rpt
+# report_timing_summary -file $outputDir/post_synth_timing_summary.rpt
+# report_power -file $outputDir/post_synth_power.rpt
+##
+## STEP#3: run placement and logic optimization, report utilization and timing
+#estimates, write checkpoint design
+##
+opt_design
+# power_opt_design
+place_design
+phys_opt_design
+# write_checkpoint -force $outputDir/post_place
+# report_timing_summary -file $outputDir/post_place_timing_summary.rpt
+##
+## STEP#4: run router, report actual utilization and timing, write checkpoint design,
+#run drc, write verilog and xdc out
+##
+route_design
+place_design -post_place_opt
+phys_opt_design
+route_design
+# Generate reports and design checkpoint
+write_checkpoint -force $outputDir/post_route
+report_timing_summary -file $outputDir/post_route_timing_summary.rpt -report_unconstrained
+report_timing -sort_by group -max_paths 5 -path_type summary -file $outputDir/post_route_timing.rpt
+# report_clock_utilization -file $outputDir/clock_util.rpt
+report_utilization -file $outputDir/post_route_util.rpt
+# report_power -file $outputDir/post_route_power.rpt
+report_drc -file $outputDir/post_imp_drc.rpt
+# write_verilog -force $outputDir/artix_headboard_impl_netlist.v
+# write_xdc -no_fixed_only -force $outputDir/artix_headboard_impl.xdc
+#If below fails ensure that 'UltraFast Design Methodology' is installed via the Vivado TCL store this is as per https://forums.xilinx.com/t5/Welcome-Join/checking-if-registers-are-in-IOB/td-p/707421
+xilinx::ultrafast::report_io_reg -verbose -file $outputDir/post_route_iob.rpt
+
+##
+## STEP#5: generate a bitstream
+##
+# Reduce these failures down to warnings to allow bit file to be generated without LOC constaints being applied to pins
+set_property SEVERITY {Warning} [get_drc_checks NSTD-1]
+set_property SEVERITY {Warning} [get_drc_checks UCIO-1]
+
+write_bitstream -force -bin_file $outputDir/VHDL__verilog_vhdl_comparison_top.bit
+#write_bitstream $outputDir/bft.bit

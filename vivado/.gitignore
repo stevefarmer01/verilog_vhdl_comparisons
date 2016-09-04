@@ -8,6 +8,8 @@
 *
 !*/
 !.gitignore
+#Use line below if there are files generated inside of vivado generated .Xil directory that have not been ignored like temperary .tcl files
+/.*/
 ###########################################################################
 ##  VIVADO non-project mode
 ###########################################################################
@@ -17,21 +19,26 @@
 #*.cache/
 #*.sim/
 
-##ignore vivado created synth/implmentation directories
-vivado_temp_files/
-##ignore vivado created reports and design check point directories
-vivado_reports/
+###ignore vivado created synth/implmentation directories
+#vivado_temp_files/
+###ignore vivado created reports and design check point directories
+#vivado_reports/
 
-#########
-#Source files:
-#########
-#Do NOT ignore VHDL, Verilog, block diagrams or EDIF files.
-!*.vhd
-!*.vhdl
-!*.v
-#####when scripted ignore .xpr file
+##########
+##Source files: - scripted vivado projects should keep all souirce files in a directory above this level
+##########
+##Do NOT ignore VHDL, Verilog, block diagrams or EDIF files.
+#!*.vhd
+#!*.vhdl
+#!*.v
+
+
+##############################
+##Scripts for running vivado
+##############################
+#####when scripted ignore .xpr file as this might be generated for a quick check/generation
 #!*.xpr
-!*.xdc
+#!*.xdc
 !*.tcl
 #####when scripted do not ignore .bat (windows batch files)
 !*.bat
@@ -39,13 +46,13 @@ vivado_reports/
 ####### just to aid temperary debug between computers allow storing of waveform files
 !*.wcfg
 
-###########################################################################
-##  bug in 2014.1, shoudl be OK from 2014.3 - http://www.xilinx.com/support/answers/61451.html
-##  need to include these files to allow cloned project to build OK
-###########################################################################
-!ports.xml
-!designprops.xml
-!usercols.xml 
+############################################################################
+###  bug in 2014.1, shoudl be OK from 2014.3 - http://www.xilinx.com/support/answers/61451.html
+###  need to include these files to allow cloned project to build OK
+############################################################################
+#!ports.xml
+#!designprops.xml
+#!usercols.xml 
 
 ###### JUST FOR CODE DEVLOPMENT IT IS HANDY TO SEE WHEN BIT FILE HAS CHANGED #####
 ##Need to ignore all files in sub-directories but not the directory path into where the bit file is
