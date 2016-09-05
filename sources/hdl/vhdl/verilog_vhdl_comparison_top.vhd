@@ -36,7 +36,7 @@ entity verilog_vhdl_comparison_top is
            signal_in_bit : in  std_logic;
            SystemClk : in  std_logic;
            --signal_out : out  std_logic_vector(3 downto 0);
-           signal_out_bit : out  std_logic
+           signal_out_bit : out  std_logic := '0'
            );
 end verilog_vhdl_comparison_top;
 

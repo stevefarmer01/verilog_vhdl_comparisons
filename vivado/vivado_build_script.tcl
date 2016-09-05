@@ -64,8 +64,8 @@ file mkdir $outputDir
 #read_vhdl -library work [ glob ../common_ip/fpga_reset/source/*.vhd ]
 
 #main project source code
-#read_vhdl -library work [ glob ../sources/hdl/vhdl/*.vhd ]
-read_verilog -library work [ glob ../sources/hdl/verilog/*.v ]
+read_vhdl -library work [ glob ../sources/hdl/vhdl/*.vhd ]
+#read_verilog -library work [ glob ../sources/hdl/verilog/*.v ]
 
 ##XDC constraints
 #read_xdc ../sources/constraint/artix_headboard_eval.xdc
